@@ -3,7 +3,7 @@
 // ================================
 const DEADLINE = "2026-03-15T23:59:59";  // 申し込み期限
 const MAX_PEOPLE = 15;                   // 最大人数
-const WEBHOOK_URL = "https://hyperform.jp/api/axr2LpKf";
+const WEBHOOK_URL = "https://hyperform.jp/api/eULaUAI8";
 // ================================
 
 // HTML要素を取得

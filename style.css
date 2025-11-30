@@ -1,0 +1,58 @@
+body {
+  font-family: sans-serif;
+  padding: 20px;
+  max-width: 500px;
+  margin: auto;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+input, select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  font-size: 16px;
+}
+
+button {
+  margin-top: 20px;
+  padding: 12px;
+  width: 100%;
+  font-size: 18px;
+  border: none;
+  border-radius: 6px;
+  background: black;
+  color: white;
+}
+
+button:disabled {
+  background: #555;
+}
+
+#finishSection {
+  display: none;
+  margin-top: 30px;
+}
+
+#finishSection p {
+  font-size: 20px;
+  line-height: 1.6;
+}
+
+.cancel {
+  background: #999;
+}
+
+.limit {
+  color: #444;
+  font-size: 14px;
+}

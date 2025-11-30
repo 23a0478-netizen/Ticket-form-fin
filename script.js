@@ -1,41 +1,76 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LIVE申し込みフォーム</title>
-  <!-- 既存CSS読み込み -->
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
+// ---- 設定 ----
+const GAS_WEB_APP_URL = "YOUR_GAS_WEB_APP_URL"; // ←差し替え必須
 
-  <h1>LIVE申し込みフォーム</h1>
+// ---- 要素取得 ----
+const submitBtn = document.getElementById("submitBtn");
+const cancelBtn = document.getElementById("cancelBtn");
+const formSection = document.getElementById("formSection");
+const finishSection = document.getElementById("finishSection");
+const finishMsg = document.getElementById("finishMsg");
+const ticketSection = document.getElementById("ticketSection");
+const ticketURL = document.getElementById("ticketURL");
 
-  <form id="myForm" action="https://hyperform.jp/api/eULaUAI8" method="POST">
-    <label for="liveType">LIVE選択:</label>
-    <select name="live_type" id="liveType" required>
-      <option value="">選択してください</option>
-      <option value="第6回演奏会">第6回演奏会</option>
-      <option value="11代目引退LIVE">11代目引退LIVE</option>
-    </select>
+// ---- 送信ボタン ----
+submitBtn.addEventListener("click", () => {
+  const liveType = document.getElementById("liveType").value;
+  const name = document.getElementById("name").value;
+  const count = document.getElementById("count").value;
 
-    <label for="name">代表者名:</label>
-    <input type="text" name="name" id="name" placeholder="フルネーム" required>
+  if (!name || !count) {
+    alert("全ての項目を入力してください。");
+    return;
+  }
 
-    <label for="count">来場者人数:</label>
-    <input type="number" name="count" id="count" placeholder="1〜15" min="1" max="15" required>
+  // データをGASへ送信
+  fetch(GAS_WEB_APP_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      mode: "add",
+      liveType,
+      name,
+      count
+    })
+  })
+    .then(res => res.json())
+    .then(data => {
+      // 保存されたIDを localStorage に保存
+      localStorage.setItem("entryId", data.id);
 
-    <p id="limitMessage"></p>
+      formSection.style.display = "none";
+      finishSection.style.display = "block";
+      finishMsg.textContent = `${name} さん、${count}名。申し込みありがとうございます。（承認待ちです）`;
+    });
+});
 
-    <button type="submit" id="submitBtn" disabled>送信</button>
-  </form>
 
-  <div id="finishSection" style="display:none;">
-    <p id="finishMsg"></p>
-    <button id="cancelBtn">キャンセル</button>
-  </div>
+// ---- キャンセルボタン（スプレッドシート削除機能）----
+cancelBtn.addEventListener("click", () => {
+  const entryId = localStorage.getItem("entryId");
+  if (!entryId) {
+    alert("削除対象の申込IDがありません。");
+    return;
+  }
 
-  <!-- 外部JS読み込み -->
-  <script src="script.js"></script>
-</body>
-</html>
+  if (!confirm("申込をキャンセルしますか？（スプレッドシートからも削除されます）")) return;
+
+  fetch(GAS_WEB_APP_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      mode: "delete",
+      id: entryId
+    })
+  })
+    .then(res => res.text())
+    .then(result => {
+      console.log("削除結果:", result);
+
+      localStorage.removeItem("entryId");
+
+      alert("申込をキャンセルしました。");
+
+      finishSection.style.display = "none";
+      formSection.style.display = "block";
+    });
+});

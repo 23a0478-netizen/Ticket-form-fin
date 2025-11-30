@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>LIVE申し込みフォーム</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- CSSを読み込み -->
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+<!-- タイトル・期限 -->
+<h1 id="liveTitle">LIVE申し込みフォーム</h1>
+<p id="limitMessage" class="limit"></p>
+
+<!-- 申し込みフォーム -->
+<div id="formSection">
+
+  <label>参加するLIVE</label>
+  <select id="liveType" required>
+    <option value="">選択してください</option>
+    <option value="第6回定期演奏会">第6回定期演奏会（午前）</option>
+    <option value="11代目引退LIVE">11代目引退LIVE（午後）</option>
+  </select>
+
+  <label>代表者名（フルネーム）</label>
+  <input type="text" id="name" placeholder="例：山田太郎" required>
+
+  <label>来場者人数（1〜15）</label>
+  <input type="number" id="count" min="1" max="15" required>
+
+  <button id="submitBtn" disabled >送信する</button>
+</div>
+
+<!-- 完了画面 -->
+<div id="finishSection">
+  <p id="finishMsg"></p>
+  <button id="cancelBtn" class="cancel">キャンセル（入力に戻る）</button>
+</div>
+
+<!-- JSを読み込み -->
+<script src="script.js"></script>
+
+</body>
+</html>

@@ -1,47 +1,41 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<title>LIVE申し込みフォーム</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<!-- CSSを読み込み -->
-<link rel="stylesheet" href="style.css">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LIVE申し込みフォーム</title>
+  <!-- 既存CSS読み込み -->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- タイトル・期限 -->
-<h1 id="liveTitle">LIVE申し込みフォーム</h1>
-<p id="limitMessage" class="limit"></p>
+  <h1>LIVE申し込みフォーム</h1>
 
-<!-- 申し込みフォーム -->
-<div id="formSection">
+  <form id="myForm" action="https://hyperform.jp/api/eULaUAI8" method="POST">
+    <label for="liveType">LIVE選択:</label>
+    <select name="live_type" id="liveType" required>
+      <option value="">選択してください</option>
+      <option value="第6回演奏会">第6回演奏会</option>
+      <option value="11代目引退LIVE">11代目引退LIVE</option>
+    </select>
 
-  <label>参加するLIVE</label>
-  <select id="liveType" required>
-    <option value="">選択してください</option>
-    <option value="第6回定期演奏会">第6回定期演奏会（午前）</option>
-    <option value="11代目引退LIVE">11代目引退LIVE（午後）</option>
-  </select>
+    <label for="name">代表者名:</label>
+    <input type="text" name="name" id="name" placeholder="フルネーム" required>
 
-  <label>代表者名（フルネーム）</label>
-  <input type="text" id="name" placeholder="例：山田太郎" required>
+    <label for="count">来場者人数:</label>
+    <input type="number" name="count" id="count" placeholder="1〜15" min="1" max="15" required>
 
-  <label>来場者人数（1〜15）</label>
-  <input type="number" id="count" min="1" max="15" required>
+    <p id="limitMessage"></p>
 
-  <button id="submitBtn" disabled >送信する</button>
-</div>
+    <button type="submit" id="submitBtn" disabled>送信</button>
+  </form>
 
-<!-- 完了画面 -->
-<div id="finishSection">
-  <p id="finishMsg"></p>
-  <button id="cancelBtn" class="cancel">キャンセル（入力に戻る）</button>
-</div>
+  <div id="finishSection" style="display:none;">
+    <p id="finishMsg"></p>
+    <button id="cancelBtn">キャンセル</button>
+  </div>
 
-<!-- JSを読み込み -->
-<script src="script.js"></script>
-
+  <!-- 外部JS読み込み -->
+  <script src="script.js"></script>
 </body>
 </html>

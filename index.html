@@ -2,40 +2,39 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LIVE申し込みフォーム</title>
-  <!-- 既存CSS読み込み -->
+  <title>LIVE 申込フォーム</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div id="formSection">
+    <h1>部活動LIVE申し込みフォーム</h1>
+    <p id="deadlineMsg">申し込み可能期限：2025-12-10</p>
 
-  <h1>LIVE申し込みフォーム</h1>
-
-  <form id="myForm" action="https://hyperform.jp/api/eULaUAI8" method="post">
-    <label for="liveType">LIVE選択:</label>
-    <select name="live_type" id="liveType" required>
-      <option value="">選択してください</option>
-      <option value="第6回演奏会">第6回演奏会</option>
+    <label for="liveType">申し込みLIVEを選択：</label>
+    <select id="liveType">
+      <option value="第6回定期演奏会">第6回定期演奏会</option>
       <option value="11代目引退LIVE">11代目引退LIVE</option>
     </select>
 
-    <label for="name">代表者名:</label>
-    <input type="text" name="name" id="name" placeholder="フルネーム" required>
+    <label for="name">代表者名（フルネーム）：</label>
+    <input type="text" id="name">
 
-    <label for="count">来場者人数:</label>
-    <input type="number" name="count" id="count" placeholder="1〜15" min="1" max="15" required>
+    <label for="count">来場者人数（1〜15名）：</label>
+    <input type="number" id="count" min="1" max="15">
 
-    <p id="limitMessage"></p>
+    <button id="submitBtn">送信</button>
+  </div>
 
-    <button type="submit" id="submitBtn" disabled>送信</button>
-  </form>
-
+  <!-- 完了画面 -->
   <div id="finishSection" style="display:none;">
     <p id="finishMsg"></p>
+    <div id="ticketSection" style="display:none;">
+      <p>チケットはこちらから確認してください：</p>
+      <a id="ticketURL" href="" target="_blank"></a>
+    </div>
     <button id="cancelBtn">キャンセル</button>
   </div>
 
-  <!-- 外部JS読み込み -->
   <script src="script.js"></script>
 </body>
 </html>
